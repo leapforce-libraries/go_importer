@@ -8,7 +8,7 @@ require (
 	github.com/leapforce-libraries/go_creds v0.0.0-20220419160510-da84b7526e8d
 	github.com/leapforce-libraries/go_errortools v0.0.0-20211119145736-7b9b61c20618
 	github.com/leapforce-libraries/go_google v0.0.0-20220413201030-24cf0717d89e
-	github.com/leapforce-libraries/go_integration v0.0.0-20220614095820-cebf2ee3f64f
+	github.com/leapforce-libraries/go_integration v0.0.0-20220614121255-b84ceb6ce306
 	github.com/leapforce-libraries/go_types v0.0.0-20220220161618-e9b1045c3ef2
 )
 
