@@ -181,6 +181,8 @@ func (importer *Importer) ProcessTable(importable Importable, startDate *civil.D
 		}
 	} else if importable.Table().Truncate != nil {
 		// TRUNCATE
+		objectHandles = append(objectHandles, obj)
+
 		for i, obj := range objectHandles {
 			// copy data to BigQuery table
 			copyObjectToTableConfig := go_bigquery.CopyObjectToTableConfig{
