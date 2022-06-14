@@ -42,9 +42,6 @@ func NewImporter(cfg *ImporterConfig) (*Importer, *errortools.Error) {
 	if cfg.BucketHandle == nil {
 		return nil, errortools.ErrorMessage("BucketHandle is nil pointer")
 	}
-	if cfg.SoftwareClientLicense == nil {
-		return nil, errortools.ErrorMessage("SoftwareClientLicense is nil pointer")
-	}
 
 	importer := Importer{
 		config:                cfg.Config,
@@ -69,10 +66,6 @@ func (importer *Importer) BigQueryService() *go_bigquery.Service {
 }
 
 func (importer *Importer) ProcessTable(importable Importable, startDate *civil.Date, endDate *civil.Date) *errortools.Error {
-	/*if softwareClientLicense == nil {
-		return nil
-	}*/
-
 	if startDate == nil {
 		startDate = ig.TomorrowPtr()
 	}
@@ -214,7 +207,10 @@ func (importer *Importer) deleteData(softwareClientLicense *creds.SoftwareClient
 	ig.WithEnvironment(&_bigQueryDataset)
 
 	// delete old data
-	sqlWhere := fmt.Sprintf("SoftwareClientLicenseGuid_ = '%s'", softwareClientLicense.SoftwareClientLicenseGuid)
+	sqlWhere := "1 = 1"
+	if softwareClientLicense != nil {
+		sqlWhere = fmt.Sprintf("SoftwareClientLicenseGuid_ = '%s'", softwareClientLicense.SoftwareClientLicenseGuid)
+	}
 
 	whereString := importable.Table().Replace.WhereString()
 	if whereString == nil {
