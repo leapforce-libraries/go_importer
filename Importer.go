@@ -135,7 +135,9 @@ func (importer *Importer) ProcessTable(importable Importable, startDate *civil.D
 			if tableTargetExists {
 				// merge data
 				joinFields := importable.Table().Merge.JoinFields
-				joinFields = append(joinFields, "SoftwareClientLicenseGuid_")
+				if importer.softwareClientLicense != nil {
+					joinFields = append(joinFields, "SoftwareClientLicenseGuid_")
+				}
 
 				e := importer.bigQueryService.Merge(&sqlConfigTemp, &sqlConfigTarget, joinFields, &importable.Table().Merge.DoNotUpdateFields, false)
 				if e != nil {
